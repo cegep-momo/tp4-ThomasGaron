@@ -1,10 +1,11 @@
-from LCD1602 import clear, init, write
+from LCD1602 import CharLCD1602
 
 class view:
     def __init__(self):
-        init()
+        
+        CharLCD1602.init()
         
     def afficher(self, mesure):
-        clear()
-        write(0, 0, f"Dst: {mesure.distance} cm")
-        write(1,0, f"ADC: {mesure.adc}")
+        CharLCD1602.clear()
+        CharLCD1602.write(0, 0, f"Dst: {mesure.distance} cm")
+        CharLCD1602.write(1,0, f"ADC: {mesure.adc}")
