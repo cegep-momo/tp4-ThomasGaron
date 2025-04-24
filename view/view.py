@@ -1,4 +1,4 @@
-from LCD1602 import CharLCD1602
+from .LCD1602 import CharLCD1602
 
 class view:
     def __init__(self):

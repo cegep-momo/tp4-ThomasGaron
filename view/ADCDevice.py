@@ -35,7 +35,6 @@ class PCF8591(ADCDevice):
         
     def analogRead(self, chn): # PCF8591 has 4 ADC input pins, chn:0,1,2,3
         value = self.bus.read_byte_data(self.address, self.cmd+chn)
-        value = self.bus.read_byte_data(self.address, self.cmd+chn)
         return value
     
     def analogWrite(self,value): # write DAC value
