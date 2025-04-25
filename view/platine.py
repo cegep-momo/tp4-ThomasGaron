@@ -1,15 +1,15 @@
 import time
 from gpiozero import Button, DistanceSensor
 from time import sleep
-from .ADCDevice import *
+from view.ADCDevice import *
 
 class Platine:
     def __init__(self):
         
-        self.bouton_Start = Button(5)
-        self.bouton_Mesurer = Button(13)
+        self.bouton_Start = Button(26)
+        self.bouton_Mesurer = Button(19)
         
-        self.capteur = DistanceSensor(echo=23, trigger=24, max_distance=3)
+        self.capteur = DistanceSensor(echo=24, trigger=23, max_distance=3)
         time.sleep(2)
         
         self.adc = ADCDevice()
@@ -34,3 +34,14 @@ class Platine:
             voltage = valeurADC / 255.0 * 3.3
             print ('Valeur ADC : %d, Voltage : %.2f'%(valeurADC, voltage))
             time.sleep(0.03)
+            
+    def lesMesures(self):
+        try:
+            distance = round(self.capteur.distance * 100, 2)
+        except:
+            distance = -1
+
+        adc_value = self.adc.analogRead(0)
+        voltage = round(adc_value / 255.0 * 3.3, 2)
+
+        return distance, voltage, adc_value

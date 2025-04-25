@@ -14,19 +14,29 @@ class Controler():
     def start(self):
         # Bouton démarrer
         self.platine.bouton_Start.wait_for_press()
-        print("Système démarré")
+        print("Systeme demarre")
         
+        self.platine.bouton_Mesurer.wait_for_press()
+        
+            
         while True:
-            self.platine.bouton_Mesurer.wait_for_press()
+            if self.platine.bouton_Start.is_pressed:
+                print("FIN")
+                self.vue.ecran_lcd.clear()
+                self.vue.ecran_lcd.write(0, 0, "FIN")
+                break
+            
             self.mesurer()
+            time.sleep(5)
+            
+        
             
     def mesurer(self):
-        dst, volt, adc = self.platine.mesure()
+        dst, volt, adc = self.platine.lesMesures()
         print(f"Distance: {dst} cm, Voltage : {volt} V, ADC : {adc}")
         
         x = mesure(dst, volt, adc)
         self.vue.afficher(x)
-        model.sauvegarde_json()
-        time.sleep(5)
+        model.sauvegarde_json(x)
             
             
